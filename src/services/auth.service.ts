@@ -1,6 +1,5 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import crypto from 'crypto';
 import { v4 as uuidv4 } from 'uuid';
 import { UserRepository } from '../repositories/user.repository';
 import { LoginLogRepository } from '../repositories/login-log.repository';
@@ -47,7 +46,6 @@ export class AuthService {
             // Generate token with JTI for new user
             const jti = uuidv4();
             const token = this.generateTokenWithJti(user.id, user.email, user.role, jti);
-            const tokenHash = this.hashToken(token);
             
             // Create login session with token information
             const loginId = await this.createLoginSessionWithToken(
@@ -55,8 +53,7 @@ export class AuthService {
                 user.email, 
                 ipAddress, 
                 userAgent, 
-                jti, 
-                tokenHash
+                jti
             );
 
             return { token, user };
@@ -79,7 +76,6 @@ export class AuthService {
             // Generate token first to get JTI
             const jti = uuidv4();
             const token = this.generateTokenWithJti(user.id, user.email, user.role, jti);
-            const tokenHash = this.hashToken(token);
             
             // Create login session with token information
             const loginId = await this.createLoginSessionWithToken(
@@ -87,8 +83,7 @@ export class AuthService {
                 user.email, 
                 ipAddress, 
                 userAgent, 
-                jti, 
-                tokenHash
+                jti
             );
 
             return { token, user };
@@ -152,8 +147,7 @@ export class AuthService {
         email: string, 
         ipAddress: string, 
         userAgent: string, 
-        tokenJti: string, 
-        tokenHash: string
+        tokenJti: string
     ): Promise<number> {
         return this.loginLogRepository.create({
             user_id: userId,
@@ -162,8 +156,7 @@ export class AuthService {
             user_agent: userAgent,
             status: LoginStatus.SUCCESS,
             login_at: new Date(),
-            token_jti: tokenJti,
-            token_hash: tokenHash
+            token_jti: tokenJti
         });
     }
 
@@ -200,10 +193,6 @@ export class AuthService {
             JWT_SECRET,
             { expiresIn: '24h' }
         );
-    }
-
-    private hashToken(token: string): string {
-        return crypto.createHash('sha256').update(token).digest('hex');
     }
 
     private handleError(error: unknown): AppError {

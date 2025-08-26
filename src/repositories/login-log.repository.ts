@@ -8,8 +8,8 @@ export class LoginLogRepository {
      */
     async create(logData: LoginLogDTO): Promise<number> {
         const query = `
-            INSERT INTO login_logs (user_id, email, ip_address, user_agent, status, login_at, token_jti, token_hash)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+            INSERT INTO login_logs (user_id, email, ip_address, user_agent, status, login_at, token_jti)
+            VALUES ($1, $2, $3, $4, $5, $6, $7)
             RETURNING id
         `;
 
@@ -20,8 +20,7 @@ export class LoginLogRepository {
             logData.user_agent,
             logData.status,
             logData.login_at || new Date(),
-            logData.token_jti || null,
-            logData.token_hash || null
+            logData.token_jti || null
         ];
 
         const result = await pool.query(query, values);

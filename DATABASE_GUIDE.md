@@ -231,8 +231,7 @@ CREATE TABLE login_logs (
     device_info JSONB,
     login_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     logout_at TIMESTAMP WITH TIME ZONE,
-    token_jti VARCHAR(255),
-    token_hash VARCHAR(255)
+    token_jti VARCHAR(255)
 );
 ```
 

@@ -8,7 +8,6 @@ export interface LoginLogDTO {
     login_at: Date;
     logout_at?: Date;
     token_jti?: string;
-    token_hash?: string;
 }
 
 export enum LoginStatus {
