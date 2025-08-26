@@ -1,0 +1,50 @@
+{
+  "name": "node-js-skeleton",
+  "version": "1.0.0",
+  "description": "A professional Node.js skeleton/starter pack with TypeScript, PostgreSQL, JWT authentication, and clean architecture",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon --watch src --exec tsx src/server.ts",
+    "start": "tsx src/server.ts",
+    "build": "tsc",
+    "check": "node scripts/check-setup.cjs",
+    "migrate": "node scripts/migrate.cjs run",
+    "migrate:rollback": "node scripts/migrate.cjs rollback",
+    "migrate:rollback:all": "node scripts/migrate.cjs rollback:all",
+    "migrate:refresh": "node scripts/migrate.cjs refresh",
+    "migrate:status": "node scripts/migrate.cjs status",
+    "migrate:create": "node scripts/create-migration.cjs",
+    "migrate:help": "node scripts/migrate.cjs help"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@types/uuid": "^10.0.0",
+    "bcrypt": "^6.0.0",
+    "compression": "^1.8.1",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "express-validator": "^7.2.1",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "node-pg-migrate": "^8.0.3",
+    "pg": "^8.16.3",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/compression": "^1.8.1",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^24.2.1",
+    "@types/pg": "^8.15.5",
+    "nodemon": "^3.1.10",
+    "tsx": "^4.20.4",
+    "typescript": "^5.9.2"
+  }
+}
